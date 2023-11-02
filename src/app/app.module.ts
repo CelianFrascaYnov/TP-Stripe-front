@@ -15,6 +15,7 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
+    FormulaireVoitureComponent
   ],
   imports: [
     BrowserModule,
