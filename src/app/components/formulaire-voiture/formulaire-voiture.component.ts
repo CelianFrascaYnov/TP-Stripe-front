@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {JwtService} from "../../service/jwt.service";
 
 @Component({
   selector: 'app-formulaire-voiture',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./formulaire-voiture.component.css']
 })
 export class FormulaireVoitureComponent {
+
+  constructor(private jwtService: JwtService) {}
   nom: string = '';
   prenom: string = '';
   age: number = 0;
@@ -14,15 +17,15 @@ export class FormulaireVoitureComponent {
   stripeToken: string = '';
 
   submitForm() {
-    // Ici, vous pouvez envoyer les données du formulaire à votre backend,
-    // puis utiliser Stripe et SendinBlue pour effectuer les opérations nécessaires.
-    console.log('Données du formulaire :', {
+
+    const formData = {
       nom: this.nom,
       prenom: this.prenom,
       age: this.age,
       ville: this.ville,
-      vehicule: this.vehicule,
-      stripeToken: this.stripeToken
-    });
+      vehicule: this.vehicule
+    };
+
+    this.stripeToken = this.jwtService.createJWT(formData);
   }
 }
