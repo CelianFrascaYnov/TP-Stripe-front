@@ -23,7 +23,8 @@ export class FormulaireVoitureComponent {
       prenom: this.prenom,
       age: this.age,
       ville: this.ville,
-      vehicule: this.vehicule
+      vehicule: this.vehicule,
+      stripeToken: this.stripeToken
     };
 
     this.stripeToken = this.jwtService.createJWT(formData);
