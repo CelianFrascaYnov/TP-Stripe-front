@@ -27,6 +27,14 @@ export class FormulaireVoitureComponent {
       stripeToken: this.stripeToken
     };
 
-    this.stripeToken = this.jwtService.createJWT(formData);
+      this.jwtService.createCheckoutSession(formData).subscribe(
+        (token: any) => {
+          console.log(token)
+        },
+        (error) => {
+          console.error('Erreur lors de la création de la session :', error);
+        }
+      );
+
   }
 }

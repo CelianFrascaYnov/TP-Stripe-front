@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import * as jwt from 'jsonwebtoken'
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+
 @Injectable({
   providedIn: 'root'
 })
 export class JwtService {
-  constructor() {}
+  private apiUrl = 'http://localhost:8080/api'; // Remplacez par l'URL de votre API
 
-  createJWT(formData: any): string {
-    var token = jwt.sign(formData, 'LatreeTeam');
-    return token;
+  constructor(private http: HttpClient) {}
+
+  createCheckoutSession(jwtRequest: any): Observable<string> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<string>(`${this.apiUrl}/create-checkout-session`, jwtRequest, {
+      headers,
+      responseType: 'text' as 'json'
+    });
   }
 }

@@ -6,11 +6,8 @@ import {FormsModule} from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgModule} from "@angular/core";
-import {JwtModule} from "@auth0/angular-jwt";
+import {HttpClientModule} from "@angular/common/http";
 
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
 
 @NgModule({
   declarations: [
@@ -21,14 +18,9 @@ export function tokenGetter() {
     BrowserModule,
 	FormsModule,
     AppRoutingModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter,
-        allowedDomains: ['example.com'],
-      },
-    }),
+    HttpClientModule,
   ],
-  providers: [JwtService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
