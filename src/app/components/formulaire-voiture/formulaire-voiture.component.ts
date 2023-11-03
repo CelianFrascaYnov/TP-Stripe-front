@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {JwtService} from "../../service/jwt.service";
+import { JwtService } from "../../service/jwt.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-formulaire-voiture',
@@ -27,14 +28,25 @@ export class FormulaireVoitureComponent {
       stripeToken: this.stripeToken
     };
 
-      this.jwtService.createCheckoutSession(formData).subscribe(
-        (token: any) => {
-          console.log(token)
-        },
-        (error) => {
-          console.error('Erreur lors de la création de la session :', error);
+    this.jwtService.createCheckoutSession(formData).subscribe(
+      (response: any) => {
+        if (response.sessionId) {
+          console.log('Session créée avec succès :', response);
+
+          // Redirigez l'utilisateur vers l'URL retournée par l'API
+          window.location.href = response.sessionUrl;
+        } else {
+          console.error('Réponse inattendue de l\'API :', response);
         }
-      );
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          console.error('Erreur HTTP lors de la création de la session :', error);
+        } else {
+          console.error('Erreur métier lors de la création de la session :', error);
+        }
+      }
+    );
 
   }
 }
