@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgModule} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
+import { TransactionValideeComponent } from './components/transaction-validee/transaction-validee.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormulaireVoitureComponent
+    FormulaireVoitureComponent,
+    TransactionValideeComponent
   ],
   imports: [
     BrowserModule,
